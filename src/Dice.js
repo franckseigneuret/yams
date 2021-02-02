@@ -8,11 +8,17 @@ const Button = styled.button`
   color: palevioletred;
   margin: 0 1em;
   padding: 0.25em 1em;
+  cursor: pointer;
 `
 
-const Dice = (props) => {
+const Dice = ({ randomValue, newShuffle }) => {
+
+  const handleClick = () => {
+    newShuffle()
+  }
+
   return (
-    <Button>{props.randomValue}</Button>
+    <Button onClick={() => handleClick()}>{randomValue}</Button>
   )
 }
 
