@@ -9,13 +9,20 @@ const shuffleBetween1and6 = () => {
 const RandomDice = () => {
   let between1and6 = shuffleBetween1and6()
   const [random, setRandom] = useState(between1and6)
+  const [count, setCount] = useState(0)
 
-  const newShuffle = () => {
+  const shuffle = () => {
     between1and6 = shuffleBetween1and6()
     setRandom(between1and6)
+    setCount(count + 1)
   }
 
-  return <Dice randomValue={random} newShuffle={newShuffle} />
+  return (
+    <div>
+      <Dice randomValue={random} shuffle={shuffle} />
+      <p>{count}</p>
+    </div>
+  )
 }
 
 function App() {

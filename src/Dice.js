@@ -11,10 +11,10 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const Dice = ({ randomValue, newShuffle }) => {
+const Dice = ({ randomValue, shuffle }) => {
 
   const handleClick = () => {
-    newShuffle()
+    shuffle()
   }
 
   return (
