@@ -1,6 +1,16 @@
+body {
+  background: antiquewhite;
+}
 .dice-container {
+  background: #FFF;
   display: flex;
   justify-content: center;
   text-align: center;
   margin: 20px;
+}
+
+.dice {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
 }

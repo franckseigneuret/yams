@@ -18,7 +18,7 @@ const Dice = ({ randomValue, shuffle }) => {
   }
 
   return (
-    <Button onClick={() => handleClick()}>{randomValue}</Button>
+    <img className={`dice dice-${randomValue}`} src={`/img/de-${randomValue}.png`} onClick={() => handleClick()} alt={randomValue}/>
   )
 }
 
