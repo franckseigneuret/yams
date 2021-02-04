@@ -1,24 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components'
 
-const Button = styled.button`
-  background: transparent;
-  border-radius: 3px;
-  border: 2px solid palevioletred;
-  color: palevioletred;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-  cursor: pointer;
+const Img = styled.img`
+  border: 3px solid white;
+
+  &.selected {
+    border: 3px solid red;
+
+  }
 `
 
-const Dice = ({ randomValue, shuffle }) => {
+const Dice = ({ randomValue }) => {
 
-  const handleClick = () => {
-    shuffle()
+  const [blocked, setBlocked] = useState(false)
+
+  const selectMe = (item) => {
+    setBlocked(!blocked)
   }
 
   return (
-    <img className={`dice dice-${randomValue}`} src={`/img/de-${randomValue}.png`} onClick={() => handleClick()} alt={randomValue}/>
+    <Img className={`dice dice-${randomValue} ${blocked ? 'selected': ''}`}
+      src={`/img/de-${randomValue}.png`}
+      alt={randomValue}
+      blocked={blocked}
+      onClick={selectMe} />
   )
 }
 
