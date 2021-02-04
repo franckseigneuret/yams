@@ -6,16 +6,16 @@ const Img = styled.img`
 
   &.selected {
     border: 3px solid red;
-
   }
 `
 
-const Dice = ({ randomValue }) => {
+const Dice = ({ randomValue, position, handleSelect }) => {
 
   const [blocked, setBlocked] = useState(false)
 
   const selectMe = (item) => {
     setBlocked(!blocked)
+    handleSelect({blocked, position})
   }
 
   return (
@@ -23,6 +23,7 @@ const Dice = ({ randomValue }) => {
       src={`/img/de-${randomValue}.png`}
       alt={randomValue}
       blocked={blocked}
+      position={position}
       onClick={selectMe} />
   )
 }

@@ -17,31 +17,43 @@ const NB_DICES = 5
 
 function App() {
 
-  const [randomDices, setRandomDices] = useState([])
+  const shuffleBetween1and6 = () => Math.ceil(Math.random() * 6)
+
+  const firstValues = []
+  const [actualValues, setActualValues] = useState(firstValues)
+  const [dicesClickable, setDicesClickable] = useState([true, true, true, true, true])
 
   const handleNewDice = () => {
-    let dicesValues = []
-    const shuffleBetween1and6 = () => Math.ceil(Math.random() * 6)
-    
+    let tempValues = []
     for (let i = 0; i < NB_DICES; i++) {
-      dicesValues.push(shuffleBetween1and6())
+      if (dicesClickable[i]) {
+        tempValues.push(shuffleBetween1and6())
+      } else {
+        tempValues.push(actualValues[i])
+      }
     }
-    setRandomDices(dicesValues)
+
+    setActualValues(tempValues)
   }
 
-  const dices = randomDices.map((dice, i) => {
-    console.log(dice)
-    return <Dice key={i} randomValue={dice} />
+  const refreshSelectedArray = (state) => {
+    const tempState = [...dicesClickable]
+    tempState[state.position] = state.blocked
+    setDicesClickable(tempState)
+    console.log('dicesClickable', dicesClickable)
+  }
+  const dices = actualValues.map((dice, i) => {
+    return <Dice key={i} randomValue={dice} position={i} handleSelect={refreshSelectedArray} />
   })
 
   return (
     <Container>
-      <Row>
+      <Row style={{ height: '150px' }}>
         {dices}
       </Row>
 
       <Row>
-        <Button color="primary" onClick={() => handleNewDice()}>Lancer</Button>
+        <Button right color="primary" onClick={() => handleNewDice()}>Lancer</Button>
       </Row>
     </Container>
   );
