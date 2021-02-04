@@ -13,9 +13,10 @@ const Dice = ({ randomValue, position, handleSelect }) => {
 
   const [blocked, setBlocked] = useState(false)
 
+  // au clic du dé
   const selectMe = (item) => {
-    setBlocked(!blocked)
-    handleSelect({blocked, position})
+    setBlocked(!blocked) // on inverse son statut blocked
+    handleSelect({blocked, position}) // on utilise la fonction envoyée dans les props pour informer le parent sur son nouvel état
   }
 
   return (
