@@ -6,15 +6,6 @@ import './App.css';
 
 const NB_DICES = 5
 
-// const [random, setRandom] = useState(between1and6)
-// const [count, setCount] = useState(0)
-
-// const shuffle = () => {
-//   between1and6 = shuffleBetween1and6()
-//   setRandom(between1and6)
-//   setCount(count + 1)
-// }
-
 function App() {
 
   const shuffleBetween1and6 = () => Math.ceil(Math.random() * 6)
@@ -54,12 +45,12 @@ function App() {
 
   return (
     <Container>
-      <Row style={{ height: '150px' }}>
+      <Row>
         {dices}
       </Row>
 
       <Row>
-        <Button right color="primary" onClick={() => handleNewDice()}>Lancer</Button>
+        <Button color="primary" onClick={() => handleNewDice()}>Lancer</Button>
       </Row>
     </Container>
   );

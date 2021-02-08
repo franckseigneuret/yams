@@ -21,7 +21,7 @@ const Dice = ({ randomValue, position, handleSelect }) => {
 
   return (
     <Img className={`dice dice-${randomValue} ${blocked ? 'selected': ''}`}
-      src={`/img/de-${randomValue}.png`}
+      src={`/img/dice-${randomValue}.svg`}
       alt={randomValue}
       blocked={blocked}
       position={position}
