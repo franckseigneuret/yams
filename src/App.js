@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Container, Row, Button } from 'reactstrap';
 
 import Dice from './Dice'
+import Grid from './Grid'
 import './App.css';
 
 const NB_DICES = 5
 
 function App() {
+  const [dicesSum, setDicesSum] = useState(0)
 
   const shuffleBetween1and6 = () => Math.ceil(Math.random() * 6)
 
@@ -29,6 +31,8 @@ function App() {
       }
     }
     setActualValues(tempValues) //on met à jour le tableau des valeurs en cours
+    
+    setDicesSum(tempValues.reduce((a, b) => a + b, 0))
   }
 
   // au clic sur un dé, on met à jour son état
@@ -46,12 +50,16 @@ function App() {
   return (
     <Container>
       <Row>
-        {dices}
+        <div className="col col-4 text-center">
+          <Button color="primary" onClick={() => handleNewDice()}>Lancer</Button>
+          <hr />
+          {dices}
+        </div>
+        <div className="col col-8">
+          <Grid dicesSum={dicesSum} />
+        </div>
       </Row>
 
-      <Row>
-        <Button color="primary" onClick={() => handleNewDice()}>Lancer</Button>
-      </Row>
     </Container>
   );
 }
