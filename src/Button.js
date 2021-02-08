@@ -7,19 +7,19 @@ const Bloc = styled.div`
   padding-bottom: 20px;
   text-align: center;
 
-  background: ${props => props.color === 'grey' ? "#e0e0e0" : "#F39148"};
-  color: ${props => props.color === 'grey' ? "#000" : "#FFF"};
+  background: ${props => props.color ? "#e0e0e0" : "#F39148"};
+  color: ${props => props.color ? "#000" : "#FFF"};
   font-size: 20px;
   border: 1px solid #858693;
-  cursor: pointer;
+  cursor: ${props => props.clickable !== undefined ? "pointer" : "auto"};
 `
 
 function Button({ handleClick, name, value, color }) {
 
-  if(color === 'grey') {
+  if(handleClick !== undefined) {
 
     return (
-      <Bloc onClick={() => handleClick({name, value})} color={color}>
+      <Bloc onClick={() => handleClick({name, value})} color={color} clickable>
         {value}
       </Bloc>
     )
