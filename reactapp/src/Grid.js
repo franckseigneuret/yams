@@ -2,25 +2,26 @@ import React, { useState } from 'react';
 
 import Button from "./Button";
 
+const casesGrid = ['as', 'deux', 'trois', 'quatre', 'cinq', 'six', 'suite', 'full', 'carre', 'yam', 'min', 'max', 'total2']
 
 const Grid = ({ dicesSum }) => {
   const [score, setScore] = useState({
-    // as: '',
-    // deux: '',
-    // trois: '',
-    // quatre: '',
-    // cinq: '',
-    // six: '',
-    // suite: '',
-    // full: '',
-    // carre: '',
-    // yam: '',
+    as: '',
+    deux: '',
+    trois: '',
+    quatre: '',
+    cinq: '',
+    six: '',
+    suite: '',
+    full: '',
+    carre: '',
+    yam: '',
     min: '',
     max: '',
     total2: '',
   })
 
-  const handleClick = ({ name, value }) => {
+  const handleClick = async ({ name, value }) => {
     const currentScore = { ...score }
 
     if (name === 'min' || name === 'max') {
@@ -29,11 +30,29 @@ const Grid = ({ dicesSum }) => {
       currentScore[name] = value
     }
 
-    if(Number.isInteger(currentScore.min) && Number.isInteger(currentScore.max)){
+    if (Number.isInteger(currentScore.min) && Number.isInteger(currentScore.max)) {
       currentScore.total2 = currentScore.max - currentScore.min
     }
 
+    console.log(currentScore)
     setScore(currentScore)
+
+    // maj DB
+    let body = '' // as=3&deux=8&trois=3&quatre=12&cinq=&six=&suite=&full=&carre=&yam=&min=17&max=16&total2=-1&
+    casesGrid.forEach(element => {
+      // ici on utilise currentScore et non score. temps latence du setstate !!
+      body += element + '=' + currentScore[element] + '&'
+    });
+
+    const f = await fetch('/grid/1', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message)
+      })
   }
 
   return (
