@@ -4,7 +4,7 @@ import Button from "./Button";
 
 const casesGrid = ['as', 'deux', 'trois', 'quatre', 'cinq', 'six', 'suite', 'full', 'carre', 'yam', 'min', 'max', 'total2']
 
-const Grid = ({ dicesSum }) => {
+const Grid = ({ dicesSum, gridPart }) => {
   const [score, setScore] = useState({
     as: '',
     deux: '',
@@ -44,7 +44,7 @@ const Grid = ({ dicesSum }) => {
       body += element + '=' + currentScore[element] + '&'
     });
 
-    const f = await fetch('/grid/1', {
+    await fetch(`/grid/${gridPart}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body

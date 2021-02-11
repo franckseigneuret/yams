@@ -11,8 +11,14 @@ router.get('/', function (req, res, next) {
 router.post('/grid', async function (req, res, next) {
   let message
 
+  // connaitre le num° de la dernière partie
+  const lastPartGrid = await gridModel.find().sort( { partie: -1 } ).limit(1);
+  // l'incrémenter
+  const i = lastPartGrid[0].partie + 1
+
+  // pour enregistrer la nouvelle partie
   const addGrid = new gridModel({
-    partie: 1,
+    partie: i,
     as: req.body.as,
     deux: req.body.deux,
     trois: req.body.trois,
@@ -31,7 +37,7 @@ router.post('/grid', async function (req, res, next) {
   const newPart = await addGrid.save()
 
   // console.log(newPart)
-  if(newPart.partie === 1) {
+  if(newPart.partie === i) {
     message = ' La partie ' + newPart.partie + ' a été enregistrée'
   } else {
     message = 'erreur d\'enregistrement nouvelle partie'
