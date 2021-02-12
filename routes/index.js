@@ -8,11 +8,16 @@ router.get('/', function (req, res, next) {
 });
 
 // enregistrer scores une nouvelle grille
+router.get('/last-part', async function (req, res, next) {
+  const lastPartGrid = await gridModel.find().sort({ partie: -1 }).limit(1);
+  res.json({ lastPart: lastPartGrid[0] });
+})
+
 router.post('/grid', async function (req, res, next) {
   let message
 
   // connaitre le num° de la dernière partie
-  const lastPartGrid = await gridModel.find().sort( { partie: -1 } ).limit(1);
+  const lastPartGrid = await gridModel.find().sort({ partie: -1 }).limit(1);
   // l'incrémenter
   const i = lastPartGrid[0].partie + 1
 
@@ -37,7 +42,7 @@ router.post('/grid', async function (req, res, next) {
   const newPart = await addGrid.save()
 
   // console.log(newPart)
-  if(newPart.partie === i) {
+  if (newPart.partie === i) {
     message = ' La partie ' + newPart.partie + ' a été enregistrée'
   } else {
     message = 'erreur d\'enregistrement nouvelle partie'
@@ -70,11 +75,11 @@ router.post('/grid/:partie', async function (req, res, next) {
 
   let message = ''
   // console.log(updatePart)
-  if(updatePart.n === 1) {
+  if (updatePart.n === 1) { // s'il y a bien 1 partie concernée
     message = ' La partie ' + req.params.partie + ' a été mise à jour'
-    if(updatePart.nModified === 1) {
+    if (updatePart.nModified === 1) { // si 1 partie est bien modifiée
       message += ' et modifiée'
-    } else if(updatePart.nModified === 0) {
+    } else if (updatePart.nModified === 0) {
       message += ' mais sans être modifiée'
     } else {
       message += 'updatePart.nModified = ' + updatePart.nModified
